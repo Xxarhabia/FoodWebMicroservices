@@ -17,6 +17,13 @@
   <name>FoodWebMicroservices</name>
   <packaging>pom</packaging>
 
+  <modules>
+    <module>microservice-gateway</module>
+    <module>microservice-eureka</module>
+    <module>microservice-config</module>
+    <module>microservice-user</module>
+  </modules>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
