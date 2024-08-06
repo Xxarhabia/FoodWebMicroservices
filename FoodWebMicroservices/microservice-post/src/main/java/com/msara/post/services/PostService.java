@@ -15,7 +15,18 @@ public class PostService {
     private PostRepository postRepository;
 
     public PostEntity createPost(PostEntity post) {
-        return postRepository.save(post);
+        try {
+            PostEntity newPost = new PostEntity();
+
+            newPost.setDescription(post.getDescription());
+            newPost.setImage(post.getImage());
+            newPost.setDateInsert(LocalDateTime.now());
+            newPost.setDateModify(LocalDateTime.now());
+
+            return postRepository.save(newPost);
+        } catch (Exception ex) {
+            throw new RuntimeException("Error al crear el post: " +ex.getMessage());
+        }
     }
 
     public PostEntity findPostById(Long id) {
@@ -29,8 +40,12 @@ public class PostService {
     public PostEntity updatePostById(Long id, PostEntity post) {
          PostEntity postFound = findPostById(id);
 
-         postFound.setDescription(post.getDescription());
-         postFound.setImage(post.getImage());
+         if (post.getDescription() != null) {
+            postFound.setDescription(post.getDescription());
+         }
+         if (post.getImage() != null) { //TODO traer la imagenes previas para añadir mas
+            postFound.setImage(post.getImage());
+         }
          postFound.setDateModify(LocalDateTime.now());
 
          return postRepository.save(postFound);
